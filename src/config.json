@@ -1,0 +1,72 @@
+{
+	"persona":[
+		{
+			"name": "Developer"	,
+			"id": "1"	
+		},
+		{
+			"name": "Sales Person",
+			"id": "2"	
+		},
+		{
+			"name": "Human Resources",
+			"id": "3"	
+		},
+		{
+			"name": "Hiring Manager",
+			"id": "4"
+		},
+		{
+			"name": "Marketing",
+			"id": "5"
+		}
+	],
+	"product":[
+		{
+			"name": "GenY Labs",
+			"id": "1"
+		},
+		{
+			"name": "Alibaba",
+			"id": "2"
+		},
+		{
+			"name": "Salesforce",
+			"id": "3"
+		},
+		{
+			"name": "Oracle",
+			"id": "4"
+		},
+		{
+			"name":"India Mart",
+			"id": "5"
+		},
+		{
+			"name":"Zebra",
+			"id": "6"
+		},
+		{
+			"name":"Basis",
+			"id": "7"
+		},
+		{
+			"name":"Celtra",
+			"id": "8"
+		}
+	],
+	"user":[
+		{
+			"name": "Arun",
+			"id": "1"
+		},
+		{
+			"name":"Test1",
+			"id":"2"
+		},
+		{
+			"name": "Test2",
+			"id": "3"
+		}
+	]
+}
