@@ -1,0 +1,34 @@
+[
+  {
+    "name": "GenY Labs",
+    "id": "1"
+  },
+		{
+			"name": "Alibaba",
+			"id": "2"
+		},
+		{
+			"name": "Salesforce",
+			"id": "3"
+		},
+		{
+			"name": "Oracle",
+			"id": "4"
+		},
+		{
+			"name":"India Mart",
+			"id": "5"
+		},
+		{
+			"name":"Zebra",
+			"id": "6"
+		},
+		{
+			"name":"Basis",
+			"id": "7"
+		},
+		{
+			"name":"Celtra",
+			"id": "8"
+		}
+	]

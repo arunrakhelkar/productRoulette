@@ -55,18 +55,26 @@
 			"id": "8"
 		}
 	],
-	"user":[
-		{
-			"name": "Arun",
-			"id": "1"
-		},
-		{
-			"name":"Test1",
-			"id":"2"
-		},
-		{
-			"name": "Test2",
-			"id": "3"
-		}
-	]
+  "user": [
+    {
+      "persona": "Sofrware Developer",
+      "email_id": "arunrakhelkar@gmail.com"
+    },
+    {
+      "persona": "Hiring Manager",
+      "email_id": "test@g2.com"
+    },
+    {
+      "persona": "Hiring Manager",
+      "email_id": "test1@g2.com"
+    },
+    {
+      "persona": "Sofrware Developer",
+      "email_id": "test3@g2.com"
+    },
+    {
+      "persona": "Hiring Manager",
+      "email_id": "test1@g2.com"
+    }
+  ]
 }
