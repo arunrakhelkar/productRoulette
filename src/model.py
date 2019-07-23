@@ -71,5 +71,5 @@ class Model:
         return None
  
 # Dev mode !!
-a = Model('Software Developer')
-a.get_recomended_product('arunrakhelkar@gmail.com')
+# a = Model('Software Developer')
+# a.get_recomended_product('arunrakhelkar@gmail.com')
