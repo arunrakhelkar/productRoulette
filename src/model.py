@@ -5,6 +5,7 @@ import warnings
 
 from db import DB 
 from user import User
+from product import Product
 from sklearn.metrics.pairwise import cosine_similarity
  
 warnings.filterwarnings('ignore')
@@ -15,8 +16,8 @@ class Model:
         self.top_users = top_users
         self.persona = persona
         self.db = DB()
-        self.users = list(self.db.find(DB.USERS_CLXN,{'persona':persona}))
-        self.products = list(self.db.find(DB.PROD_CLXN))
+        self.users = User().list({'persona':persona})
+        self.products = Product().list()
         self.users_list = [usr.get('email_id') for usr in self.users]
         self.products_list = [str(prd.get('_id')) for prd in self.products]
         self.matrix = self.get_matrix()   

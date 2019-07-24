@@ -1,4 +1,3 @@
-from model 	import Model
 from db		import DB
 
 class Product:
@@ -9,11 +8,6 @@ class Product:
 			'N':-1
 		}
 
-	def get_recomended_product(self, user):
-	    model = Model(user.get('persona'))
-	    product = model.get_recomended_product(user.get('email_id'))
-	    return product
-
 	def update(self, user, fb, product):
 		data = {
 			'email_id'	: user.get('email_id'),
@@ -22,3 +16,6 @@ class Product:
 			'value'		: self.val[fb]
 		}
 		DB().insert(DB.USER_FB, data)
+
+	def list(self):
+		return list(DB().find(DB.PROD_CLXN))

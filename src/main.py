@@ -8,37 +8,35 @@ from product    import Product
 
 
 def show_products(user):
-    product = Product().get_recomended_product(user)
-    if not product: 
-        print("You have viewed all the products")
-        return False
-    print(product.get('name'))
-    inp = input("Is this product relevant: Y/N: ")
-    Product().update(user, inp, product)
-    return True
+    while(True):
+        email_id = user.get('email_id')
+        user_persona = user.get('persona')
+        product = Model(user_persona).get_recomended_product(email_id)
+        if not product: 
+            print("You have viewed all the products")
+            return
+        print(product.get('name'))
+        inp = input("Is this product relevant: Y/N: ")
+        Product().update(user, inp, product)
 
 def main():
     email_id = input("enter email_id:").strip()
-    user = User(email_id).get()
+    user = User().get(email_id)
     if user: 
-        while(True):
-            r = show_products(user)
-            if not r: break
+        show_products(user)
     else:
         #add user to db
         personae = Persona().list()
         for i, persona in enumerate(personae):
             print(i, persona.get('name'))
-        index = input("Pick persona id: ")
-        index = int(index)
+        index = int(input("Pick persona id: "))
         if(index>=len(personae)):
             print("invalid id")
             return
         persona = personae[index]
-        User(email_id).add(persona.get('name'))
-        while(True):
-            r = show_products(user)
-            if not r: break
+        User().add(persona.get('name'), email_id)
+        user = User().get(email_id)
+        show_products(user)
 
 
 if __name__ == "__main__":
