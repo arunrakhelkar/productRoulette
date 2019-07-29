@@ -13,6 +13,8 @@ class Model:
         self.persona = persona
         self.users = User().list({'persona':persona})
         self.products = Product().list()
+        self.product_ids = [ str(prd.get('_id')) for prd in self.products ]
+        self.user_ids = [ usr.get('email_id') for usr in self.users ]
 
     def update_matrix_values(self, email_id, a, col):
         usr_fbs = list(DB().find(DB.USER_FB,{'email_id':email_id}))
@@ -22,8 +24,6 @@ class Model:
 
     def get_matrix(self):
         a = np.zeros(shape = (len(self.users), len(self.products)))
-        self.product_ids = [ str(prd.get('_id')) for prd in self.products ]
-        self.user_ids = [ usr.get('email_id') for usr in self.users ]
         for i, usr in enumerate(self.users):
             self.update_matrix_values(usr.get('email_id'), a, i)
         return pd.DataFrame(a, index=self.user_ids, columns=self.product_ids)
@@ -55,14 +55,11 @@ class Model:
     def get_recomended_product(self, email_id):
         
         mtrx = self.get_matrix()
-        print(mtrx)
         prod_mean = self.get_product_means(email_id, mtrx)
         ctgr_mtrx = self.get_ctgr_mtrx(mtrx)
         ctgr_mean = self.get_ctgr_means(email_id, ctgr_mtrx)
-        print(prod_mean)
-        print(ctgr_mean)
         return None
  
 # Dev mode !!
-a = Model('Software Developer')
-a.get_recomended_product('arunrakhelkar@gmail.com')
+# a = Model('Developer')
+# a.get_recomended_product('arunrakhelkar@gmail.com')
