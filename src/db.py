@@ -1,8 +1,5 @@
-import json
 import pymongo
-
 from env import ENV
-
 
 class DB():
 
@@ -27,3 +24,6 @@ class DB():
 
     def insert(self, clxn, data):
         return self.db[clxn].insert(data)
+
+    def remove(self, clxn, filter = {}):
+        return self.db[clxn].remove(filter)

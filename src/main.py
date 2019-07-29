@@ -1,5 +1,3 @@
-import json
-
 from user       import User
 from model      import Model
 from db         import DB
@@ -15,8 +13,10 @@ def show_products(user):
         if not product: 
             print("You have viewed all the products")
             return
+        print("Enter any other key to stop viewing products")
         print(product.get('name'))
         inp = input("Is this product relevant: Y/N: ")
+        if inp != "Y" and inp != "N": return
         Product().update(user, inp, product)
 
 def main():
