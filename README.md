@@ -1,8 +1,14 @@
-# productRoulette
-G2 project
+# productRoulette (G2 project)
 
-RUN
+Product Recommendation Engine
 
-python main.py
+A user enters her email and persona (developer, salesperson, marketing, hr, engineering manager, etc.), and the program immediately starts showing interesting B2B products that she may or may not like to adopt at her company.This program gets progressively smarter.
 
-Initially there are 7 products in database (also in /src/confif/products)
+-------------------------------------------------------------------
+Instructions to run program
+
+python src/main.py
+
+Enter email_id and persona
+
+--------------------------------------------------------------------
