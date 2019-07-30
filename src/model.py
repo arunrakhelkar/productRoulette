@@ -52,14 +52,20 @@ class Model:
         usr_ctgr = ctgr_mtrx.loc[smlr_usrs, :]
         return pd.Series(usr_ctgr.mean(axis=0))
 
+    def update_product_mean(self, prdct_mean, ctgr_mean):
+
+        for item in prdct_mean.iteritems():
+            print(item)
+
     def get_recomended_product(self, email_id):
         
         mtrx = self.get_matrix()
-        prod_mean = self.get_product_means(email_id, mtrx)
+        prdct_mean = self.get_product_means(email_id, mtrx)
         ctgr_mtrx = self.get_ctgr_mtrx(mtrx)
         ctgr_mean = self.get_ctgr_means(email_id, ctgr_mtrx)
+        self.update_product_mean(prdct_mean,ctgr_mean)
         return None
  
 # Dev mode !!
-# a = Model('Developer')
-# a.get_recomended_product('arunrakhelkar@gmail.com')
+a = Model('Sales Person')
+a.get_recomended_product('arun@g2.com')
