@@ -34,38 +34,44 @@ class Model:
         ctgr_mtrx.columns = ctgrs
         return ctgr_mtrx.groupby(level=0, axis=1).mean()
 
-    def get_similar_users(self, email_id, mtrx):
+    def get_similar_users(self, email_id, mtrx, usr_idx):
         cosim = cosine_similarity(mtrx, mtrx)
-        index = self.user_ids.index(email_id)
-        usrs = list(enumerate(cosim[index]))
+        usrs = list(enumerate(cosim[usr_idx]))
         smlr_usrs = sorted(usrs, key=lambda x:x[1], reverse=True)[1:self.n]
         return [self.user_ids[x[0]] for x in smlr_usrs]
 
-    def get_product_means(self, email_id, mtrx):
-        smlr_usrs = self.get_similar_users(email_id, mtrx)
+    def get_product_means(self, email_id, mtrx, usr_idx):
+        smlr_usrs = self.get_similar_users(email_id, mtrx, usr_idx)
         usr_prod = mtrx.loc[smlr_usrs,:]
         return pd.Series(usr_prod.mean(axis=0))
-        #normalise mean scores
 
-    def get_ctgr_means(self, email_id, ctgr_mtrx):
-        smlr_usrs = self.get_similar_users(email_id, ctgr_mtrx)
+    def get_ctgr_means(self, email_id, ctgr_mtrx, usr_idx):
+        smlr_usrs = self.get_similar_users(email_id, ctgr_mtrx, usr_idx)
         usr_ctgr = ctgr_mtrx.loc[smlr_usrs, :]
         return pd.Series(usr_ctgr.mean(axis=0))
 
-    def update_product_mean(self, prdct_mean, ctgr_mean):
-
-        for item in prdct_mean.iteritems():
-            print(item)
+    def get_prdct_list(self, mtrx, prdct_mean, ctgr_mean, usr_idx):
+        usr_val = mtrx.iloc[usr_idx]
+        usr_val = usr_val[usr_val == 0]
+        for (prdct, val) in usr_val.iteritems():
+            prdc_idx = self.product_ids.index(prdct)
+            ctgr = self.products[prdc_idx].get('category')
+            usr_val[prdct] = (prdct_mean[prdct] + ctgr_mean[ctgr])/2
+        return usr_val
 
     def get_recomended_product(self, email_id):
         
         mtrx = self.get_matrix()
-        prdct_mean = self.get_product_means(email_id, mtrx)
+        usr_idx = self.user_ids.index(email_id)
+        prdct_mean = self.get_product_means(email_id, mtrx, usr_idx)
         ctgr_mtrx = self.get_ctgr_mtrx(mtrx)
-        ctgr_mean = self.get_ctgr_means(email_id, ctgr_mtrx)
-        self.update_product_mean(prdct_mean,ctgr_mean)
-        return None
+        ctgr_mean = self.get_ctgr_means(email_id, ctgr_mtrx, usr_idx)
+        prdt_lst = self.get_prdct_list(mtrx, prdct_mean, ctgr_mean, usr_idx)
+        prdt_lst = prdt_lst.sort_values(axis=0, ascending=False)
+        if prdt_lst.empty: return None
+        prdct_idx = self.product_ids.index(prdt_lst.index[0])
+        return self.products[prdct_idx]
  
 # Dev mode !!
 a = Model('Sales Person')
-a.get_recomended_product('arun@g2.com')
+print(a.get_recomended_product('arun@g2.com'))
